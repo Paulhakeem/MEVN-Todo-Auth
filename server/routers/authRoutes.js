@@ -1,0 +1,1 @@
+const newUser = require("./../controllers/auth/signup")
