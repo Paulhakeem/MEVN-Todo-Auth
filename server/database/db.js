@@ -2,6 +2,7 @@ const express = require("express");
 const env = require("dotenv");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
+const createUser = require('./../routers/authRoutes')
 
 const app = express();
 
@@ -22,12 +23,7 @@ mongoose.connect(
 
 
 // login route
-app.get("/login", (req, res) => {
-  res.status(200).json({
-    status: 200,
-    text: "hello ",
-  });
-});
+
 
 // server
 app.listen(5000, () => {
