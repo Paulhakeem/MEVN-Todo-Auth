@@ -1,4 +1,4 @@
-const newUser = require("./../controllers/auth/signup")
+const newUser = require("../controllers/signup")
 const express = require('express')
 
 const router = express.Router()
