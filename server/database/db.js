@@ -3,12 +3,14 @@ const env = require("dotenv");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const createUser = require('./../routers/authRoutes')
+const cors = require('cors')
 
 const app = express();
 
 env.config({ path: "./config.env" });
 
 app.use(bodyparser.json());
+app.use(cors())
 
 // Mongodb connection
 mongoose.connect(

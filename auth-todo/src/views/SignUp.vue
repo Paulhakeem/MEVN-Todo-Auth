@@ -8,7 +8,7 @@
       </h1>
 
       <form
-        action="#"
+        @submit.prevent="createUser"
         class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
       >
         <p class="text-center text-lg font-medium">Create an account</p>
@@ -18,9 +18,10 @@
 
           <div class="relative">
             <input
-              type="email"
+              v-model="name"
+              type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter email"
+              placeholder="Enter name"
             />
           </div>
         </div>
@@ -30,6 +31,7 @@
 
           <div class="relative">
             <input
+              v-model="password"
               type="password"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter password"
@@ -54,5 +56,22 @@
 </template>
 
 <script setup lang="ts">
-import {RouterLink} from 'vue-router'
+import { RouterLink } from "vue-router";
+import { url } from "../utils/instance";
+import { ref } from "vue";
+
+const name = ref("");
+const password = ref("");
+
+const createUser = async () => {
+  try {
+    const res = await url.post("/signup", name.value, password.value);
+    if (res) {
+      console.log(res);
+    }
+    (name.value = ""), (password.value = "");
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>

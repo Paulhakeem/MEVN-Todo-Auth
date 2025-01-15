@@ -1,24 +1,23 @@
 <template>
   <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-lg">
-      <h1 class="text-center text-2xl font-semibold text-indigo-600 sm:text-3xl">
-       MEVN Todo Auth
+      <h1
+        class="text-center text-2xl font-semibold text-indigo-600 sm:text-3xl"
+      >
+        MEVN Todo Auth
       </h1>
 
-      <form
-        action="#"
-        class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
-      >
+      <form class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <p class="text-center text-lg font-medium">Login to your account</p>
 
         <div>
-          <label for="email" class="sr-only">Email</label>
+          <label for="text" class="sr-only">Name</label>
 
           <div class="relative">
             <input
-              type="email"
+              type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter email"
+              placeholder="Enter name"
             />
           </div>
         </div>
@@ -44,7 +43,7 @@
 
         <p class="text-center text-sm text-gray-500">
           No account?
-          <RouterLink to="/signup" class="underline" >Sign up</RouterLink>
+          <RouterLink to="/signup" class="underline">Sign up</RouterLink>
         </p>
       </form>
     </div>
@@ -52,5 +51,5 @@
 </template>
 
 <script setup lang="ts">
-import {RouterLink} from 'vue-router'
+import { RouterLink } from "vue-router";
 </script>

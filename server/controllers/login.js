@@ -12,10 +12,10 @@ exports.loginUser = async (req, res, next) => {
   }
 
   try {
-    const res = await Users.findOne({ name }).select("+password");
-    const isPasswordMatch = await bcrypt.checkPassword(password, res.password);
+    const findUser = await Users.findOne({ name }).select("+password");
+    const isPasswordMatch = await bcrypt.checkPassword(password, findUser.password);
 
-    if (!res || !isPasswordMatch) {
+    if (!findUser || !isPasswordMatch) {
       res.status(401).json({
         statusCode: 401,
         errorMessage: "Oops!!, Check Your Passord or Name",
