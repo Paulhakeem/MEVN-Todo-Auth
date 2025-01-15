@@ -22,6 +22,12 @@ next()
 })
 
 
+
+// compare password for login user
+userSchema.methods.checkPassword = async function(pwd, DBPwd){
+return await bcrypt.compare(pwd, DBPwd)
+}
+
 const Users = mongoose.model('Users', userSchema)
 
 
