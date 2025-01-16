@@ -7,10 +7,7 @@
         MEVN Todo Auth
       </h1>
 
-      <form
-        @submit.prevent="createUser"
-        class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
-      >
+      <form @submit.prevent="signupUser" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <p class="text-center text-lg font-medium">Create an account</p>
 
         <div>
@@ -40,7 +37,6 @@
         </div>
 
         <button
-          type="submit"
           class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
         >
           Sign in
@@ -56,20 +52,17 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
-import { url } from "../utils/instance";
+// import { RouterLink } from "vue-router";
+import { api } from "../utils/instance";
 import { ref } from "vue";
 
 const name = ref("");
 const password = ref("");
 
-const createUser = async () => {
+const signupUser = async () => {
   try {
-    const res = await url.post("/signup", name.value, password.value);
-    if (res) {
-      console.log(res);
-    }
-    (name.value = ""), (password.value = "");
+    const res = await api.post("/signup", name.value);
+    console.log(res);
   } catch (error) {
     console.log(error);
   }

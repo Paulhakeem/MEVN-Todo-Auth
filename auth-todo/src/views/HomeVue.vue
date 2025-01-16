@@ -7,7 +7,7 @@
         MEVN Todo Auth
       </h1>
 
-      <form class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+      <form @submit.prevent="loginUser" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <p class="text-center text-lg font-medium">Login to your account</p>
 
         <div>
@@ -15,6 +15,7 @@
 
           <div class="relative">
             <input
+              v-model="name"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter name"
@@ -27,6 +28,7 @@
 
           <div class="relative">
             <input
+              v-model="password"
               type="password"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter password"
@@ -38,7 +40,7 @@
           type="submit"
           class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
         >
-          Sign in
+          Login
         </button>
 
         <p class="text-center text-sm text-gray-500">
@@ -52,4 +54,22 @@
 
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+import { ref } from "vue";
+import { api } from "../utils/instance.js";
+
+const name = ref("");
+const password = ref("");
+
+const loginUser = async()=> {
+
+  try {
+    const res = await api.post('/login', name.value, password.value)
+    console.log(`hello ${res}`);
+  } catch (error) {
+    console.log(error);
+    
+  }
+
+
+}
 </script>
