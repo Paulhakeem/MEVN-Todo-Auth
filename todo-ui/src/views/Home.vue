@@ -7,7 +7,10 @@
         MEVN Todo Auth
       </h1>
 
-      <form @submit.prevent="loginUser" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+      <form
+        @submit.prevent="loginUser"
+        class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+      >
         <p class="text-center text-lg font-medium">Login to your account</p>
 
         <div>
@@ -52,24 +55,20 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { RouterLink } from "vue-router";
+<script setup>
+import axios from "axios";
 import { ref } from "vue";
-import { api } from "../utils/instance.js";
+// import { api } from "../utils/instance";
 
 const name = ref("");
 const password = ref("");
 
-const loginUser = async()=> {
-
+const loginUser = async () => {
   try {
-    const res = await api.post('/login', name.value, password.value)
+    const res = await axios.post("http://localhost:5000/todo/signup/login", name.value, password.value);
     console.log(`hello ${res}`);
   } catch (error) {
     console.log(error);
-    
   }
-
-
-}
+};
 </script>
