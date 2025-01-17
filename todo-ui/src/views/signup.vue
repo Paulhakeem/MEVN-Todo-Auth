@@ -57,15 +57,15 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
-
-const name = ref("");
-const password = ref("");
+const name = ref("paul");
+const password = ref("1234");
 
 const signupUser = async () => {
   try {
     const res = await axios.post(
       "http://localhost:5000/todo/signup",
-      name.value
+      name.value,
+      password.value
     );
     console.log(res);
   } catch (error) {

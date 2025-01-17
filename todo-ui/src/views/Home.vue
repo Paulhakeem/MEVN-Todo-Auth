@@ -65,7 +65,7 @@ const password = ref("");
 
 const loginUser = async () => {
   try {
-    const res = await axios.post("http://localhost:5000/todo/signup/login", name.value, password.value);
+    const res = await axios.post("http://localhost:5000/todo/login", name.value, password.value);
     console.log(`hello ${res}`);
   } catch (error) {
     console.log(error);

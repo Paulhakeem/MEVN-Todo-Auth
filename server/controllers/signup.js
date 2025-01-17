@@ -5,9 +5,9 @@ exports.createUser = async (req, res, next) => {
 
   //   CHECKING INPUT INFO
   if (!name || !password) {
-    return res.status(401).json({
+    return res.status(403).json({
       statusCode: 401,
-      errorMessage: "Something went wrong😢",
+      errorMessage: "Opps!, check your name or password😢",
     });
   }
 
@@ -15,8 +15,8 @@ exports.createUser = async (req, res, next) => {
     // CHECK IF USER EXIST
     const checkUser = await Users.findOne({ name });
     if (checkUser) {
-      return res.status(401).json({
-        statusCode: 401,
+      return res.status(403).json({
+        statusCode: 403,
         errorMessage: "User name exist💀, Please login to your account!",
       });
     }
