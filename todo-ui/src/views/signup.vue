@@ -57,16 +57,23 @@
 <script setup>
 import { ref } from "vue";
 import { useAuthtore } from "../store/auth.js";
+import { useRouter } from "vue-router";
+const { createUser } = useAuthtore();
 
-const {createUser} = useAuthtore()
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
 
 const signupUser = async () => {
-await createUser(email.value, password.value)
+  await createUser(email.value, password.value)
+    .then((result) => {
+      router.push({
+        path: "/darshboard",
+      });
+    })
 
-email.value = ''
-password.value = ''
+  email.value = "";
+  password.value = "";
 };
 </script>
