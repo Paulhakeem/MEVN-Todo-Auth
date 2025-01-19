@@ -55,24 +55,18 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
+import { useAuthtore } from "../store/auth.js";
 
-const email = ref("paulnyamawi@gmail.com");
-const password = ref("1234");
+const {createUser} = useAuthtore()
+
+const email = ref("");
+const password = ref("");
 
 const signupUser = async () => {
-  try {
-    const res = await axios.post(
-      "http://localhost:5000/todo/signup",
-      email.value,
-      password.value
-    );
-    if (res) {
-      console.log(res);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+await createUser(email.value, password.value)
+
+email.value = ''
+password.value = ''
 };
 </script>
