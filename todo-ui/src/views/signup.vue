@@ -18,10 +18,10 @@
 
           <div class="relative">
             <input
-              v-model="name"
-              type="text"
+              v-model="email"
+              type="email"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter name"
+              placeholder="Enter your email"
             />
           </div>
         </div>
@@ -57,19 +57,18 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
-const name = ref("paul");
+
+const email = ref("paulnyamawi@gmail.com");
 const password = ref("1234");
 
 const signupUser = async () => {
-  try {
-    const res = await axios.post(
-      "http://localhost:5000/todo/signup",
-      name.value,
-      password.value
-    );
-    console.log(res);
-  } catch (error) {
-    console.log(error);
-  }
+  await axios
+    .post("http://localhost:5000/todo/signup", email.value, password.value)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 </script>

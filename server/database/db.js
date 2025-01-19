@@ -4,6 +4,7 @@ const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const createUser = require('./../routers/authRoutes')
 const cors = require('cors')
+const helment = require('helmet')
 
 const app = express();
 
@@ -11,6 +12,7 @@ env.config({ path: "./config.env" });
 
 app.use(bodyparser.json());
 app.use(cors())
+app.use(helment())
 
 // Mongodb connection
 mongoose.connect(
