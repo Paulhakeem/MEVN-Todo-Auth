@@ -1,3 +1,4 @@
+
 <template>
   <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-lg">
@@ -64,11 +65,6 @@ const name = ref("");
 const password = ref("");
 
 const loginUser = async () => {
-  try {
-    const res = await axios.post("http://localhost:5000/todo/login", name.value, password.value);
-    console.log(`hello ${res}`);
-  } catch (error) {
-    console.log(error);
-  }
+
 };
 </script>
