@@ -62,13 +62,17 @@ const email = ref("paulnyamawi@gmail.com");
 const password = ref("1234");
 
 const signupUser = async () => {
-  await axios
-    .post("http://localhost:5000/todo/signup", email.value, password.value)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/todo/signup",
+      email.value,
+      password.value
+    );
+    if (res) {
+      console.log(res);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 </script>

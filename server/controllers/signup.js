@@ -1,4 +1,27 @@
 const Users = require("../model/users");
+const jwtToken = require('jsonwebtoken')
+
+
+//jwt token
+const userToken = (id)=> {
+  return jwtToken.sign({id}, process.env.SECRET_TOKEN, {
+    expiresIn: 24 * 60 * 60 * 1000,
+  })
+}
+
+
+// creating cookie
+const sendResponse = (user, statusCode, res)=> {
+  const token = userToken(user._id)
+  const options = {
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: true
+  }
+  if((process.env.NODE_ENV = "production")) {
+    options.secure = true
+  }
+  user.password = undefined
+}
 
 exports.createUser = async (req, res, next) => {
   const { email, password } = req.body;
