@@ -15,5 +15,17 @@ export const useAuthtore = defineStore("auth", () => {
       });
   };
 
-  return { createUser };
+  // login
+  const loginUser = async (email, password) => {
+    await axios.post("http://localhost:5000/todo/login", { email, password })
+      .then(res => {
+        console.log(res);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return { createUser, loginUser };
 });

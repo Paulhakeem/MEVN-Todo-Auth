@@ -1,4 +1,3 @@
-
 <template>
   <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-lg">
@@ -57,14 +56,22 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
-// import { api } from "../utils/instance";
+import { useRouter } from "vue-router";
+import { useAuthtore } from "../store/auth.js";
 
 const name = ref("");
 const password = ref("");
 
-const loginUser = async () => {
+const router = useRouter();
 
+const { loginUser } = useAuthtore();
+
+const singInUser = async () => {
+  await loginUser(email.value, password.value).then((res) => {
+    router.push({
+      path: "/darshboard",
+    });
+  });
 };
 </script>
