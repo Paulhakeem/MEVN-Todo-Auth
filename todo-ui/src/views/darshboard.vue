@@ -1,6 +1,11 @@
 <template>
   <main>
-    <div class="bg-gray-50 min-h-screen flex items-center justify-center px-16">
+<Header :msg="text"/>
+
+<!-- input -->
+ <InputTodo/>
+    <!-- main body -->
+    <div class="bg-gray-50 flex items-center justify-center px-16">
     <div class="relative w-full max-w-lg">
       <div
         class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
@@ -43,5 +48,8 @@
 </template>
 
 <script setup>
+import Header from '@/components/Header.vue';
+import InputTodo from '@/components/InputTodo.vue';
 
+const text = "Welcome To Our Todo 🤗"
 </script>
