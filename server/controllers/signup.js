@@ -54,7 +54,8 @@ exports.createUser = async (req, res, next) => {
     // CREATE NEW USER
     const newUser = await Users.create(req.body);
     if (newUser) {
-      sendResponse(newUser, 201, res);
+      const userToken = req.headers.authorization;
+      // sendResponse(newUser, 201, res);
     }
   } catch (error) {
     res.status(500).json({
