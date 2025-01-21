@@ -26,7 +26,7 @@ next()
 
 
 // compare password for login user
-userSchema.methods.checkPassword = async function(pwd, DBPwd){
+userSchema.methods.comparePassword = async function(pwd, DBPwd){
 return await bcrypt.compare(pwd, DBPwd)
 }
 

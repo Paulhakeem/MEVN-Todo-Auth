@@ -66,13 +66,13 @@ const email = ref("");
 const password = ref("");
 
 const signupUser = async () => {
-  await createUser(email.value, password.value)
-    .then((result) => {
-      router.push({
-        path: "/darshboard",
-      });
-    })
-
+  const newuser = await createUser(email.value, password.value);
+  if (newuser) {
+    console.log("account created");
+  }
+  router.push({
+    path: "/darshboard",
+  });
   email.value = "";
   password.value = "";
 };

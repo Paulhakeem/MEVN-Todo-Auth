@@ -13,7 +13,7 @@ exports.loginUser = async (req, res, next) => {
 
   try {
     const findUser = await Users.findOne({ name }).select("+password");
-    const isPasswordMatch = await bcrypt.checkPassword(password, findUser.password);
+    const isPasswordMatch = await bcrypt.comparePassword(password, findUser.password);
 
     if (!findUser || !isPasswordMatch) {
       res.status(401).json({
