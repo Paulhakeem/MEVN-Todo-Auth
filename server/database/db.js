@@ -3,6 +3,7 @@ const env = require("dotenv");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const createUser = require('./../routers/authRoutes')
+const newTodo = require("../routers/todoRoutes")
 const cors = require('cors')
 const helment = require('helmet')
 
@@ -28,6 +29,10 @@ mongoose.connect(
 
 // login route
 app.use("/todo", createUser)
+
+
+// creating todo route
+app.use('/todo', newTodo)
 
 
 // server
