@@ -1,5 +1,7 @@
 const Todo = require("./../model/todo");
 
+
+// Add Todo
 exports.createTodo = async (req, res, next) => {
   const { todo } = req.body;
 
@@ -27,3 +29,9 @@ exports.createTodo = async (req, res, next) => {
 
   next();
 };
+
+
+// Delete Todo
+exports.deleteTodo = async(req,res,next)=> {
+    const {id} = req.params.id
+}
