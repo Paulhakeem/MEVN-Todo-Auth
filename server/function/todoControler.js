@@ -1,5 +1,5 @@
-const Todo = require("./../model/todo");
 
+const Todo = require("./../model/todo");
 
 // Add Todo
 exports.createTodo = async (req, res, next) => {
@@ -14,11 +14,11 @@ exports.createTodo = async (req, res, next) => {
     }
 
     const newTodo = await Todo.create(req.body);
-    if(newTodo){
-        res.status(201).json({
-            statusCode: 201,
-            message: 'New todo created!!'
-        })
+    if (newTodo) {
+      res.status(201).json({
+        statusCode: 201,
+        message: "New todo created!!",
+      });
     }
   } catch (error) {
     res.status(500).json({
@@ -30,8 +30,23 @@ exports.createTodo = async (req, res, next) => {
   next();
 };
 
-
 // Delete Todo
-exports.deleteTodo = async(req,res,next)=> {
-    const {id} = req.params.id
-}
+exports.deleteTodo = async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    const checkTodo = await Todo.findByIdAndDelete(id);
+    if (checkTodo) {
+      res.status(200).json({
+        statusCode: 200,
+        message: "Todo deleted successully!",
+      });
+    }
+  } catch (error) {
+    res.status(404).json({
+        statusCode: 404,
+        message: "User id not found!"
+    })
+  }
+  next()
+};
