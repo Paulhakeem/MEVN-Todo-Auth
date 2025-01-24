@@ -2,9 +2,9 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 export const useTodoStore = defineStore("todo", () => {
-  const createTodo = async (todo) => {
+  const createTodo = async (name) => {
     const res = await axios.post("http://localhost:5000/todo/add-todo", {
-      todo,
+      name,
     });
     try {
       if (res) {
