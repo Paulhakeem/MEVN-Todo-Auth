@@ -7,7 +7,7 @@
       <label for="Search" class="sr-only"> Search </label>
 
       <input
-        v-model="todo"
+        v-model="newTodo"
         type="text"
         placeholder="Enter your todo..."
         class="w-full rounded-md border-gray-200 outline-none py-2.5 pe-10 shadow-sm sm:text-sm pl-2 hover:outline-gray-400"
@@ -62,25 +62,25 @@
 <script setup>
 import Header from "@/components/Header.vue";
 import { ref } from "vue";
-import { useTodoStore } from "../store/todo.js";
+import axios from "axios";
 
-const { createTodo } = useTodoStore();
-
-const todo = ref("");
+const newTodo = ref("");
 
 const todos = ref([]);
 
 const addTodo = async () => {
-  await createTodo(todo.value)
-    .then((result) => {
-      console.log('hello');
-      
-    })
+  const res = await axios.post("http://localhost:5000/todo/add-todo", 
+    newTodo.value
+    );
+    try {
+      if (res) {
+        console.log("todo added");
+      }
+    } catch (error) {
+      console.log("error occur");
+    }
+  };
 
-  // todos.value.push({name: newTodo.value});
-
-  todo.value = "";
-};
 
 const text = "Welcome To Our Todo 🤗";
 </script>

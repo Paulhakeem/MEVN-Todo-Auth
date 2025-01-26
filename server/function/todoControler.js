@@ -18,6 +18,7 @@ exports.createTodo = async (req, res, next) => {
       res.status(201).json({
         statusCode: 201,
         message: "New todo created!!",
+        newTodo
       });
     }
   } catch (error) {
