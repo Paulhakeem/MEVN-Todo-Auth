@@ -38,18 +38,19 @@
         ></div>
 
         <!-- TODO LIST -->
-        <div v-for="todo in todos" :key="todo._id" class="m-8 relative space-y-4">
-        
-          <div
-            class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8"
-          >
-            <div class="flex-1 flex justify-between items-center">
-              <p class="text-gray-500">{{ todo.name }}</p>
-              <button
-                class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
-              >
-                Delete
-              </button>
+        <div v-for="text in todos" :key="text.id">
+          <div class="m-8 relative space-y-4">
+            <div
+              class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8"
+            >
+              <div class="flex-1 flex justify-between items-center">
+                <p class="text-gray-500">{{ text.name }}</p>
+                <button
+                  class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -67,14 +68,18 @@ const { createTodo } = useTodoStore();
 
 const todo = ref("");
 
-const todos = ref({})
+const todos = ref([]);
 
 const addTodo = async () => {
-  const newTodo = await createTodo(todo.value);
-  if (newTodo) {
-    todos.value.push(newTodo.value)
-  }
-  todo.value = ''
+  await createTodo(todo.value)
+    .then((result) => {
+      console.log('hello');
+      
+    })
+
+  // todos.value.push({name: newTodo.value});
+
+  todo.value = "";
 };
 
 const text = "Welcome To Our Todo 🤗";

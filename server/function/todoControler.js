@@ -6,7 +6,7 @@ exports.createTodo = async (req, res, next) => {
   const { name } = req.body;
 
   try {
-    if (!todo) {
+    if (!name) {
       return res.status(400).json({
         statusCode: 400,
         message: "Check your input field",
