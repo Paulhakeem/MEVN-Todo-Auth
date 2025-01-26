@@ -32,21 +32,18 @@
         <color2 />
         <color3 />
         <!-- TODO LIST -->
-        <div v-if="todos">
-          <div v-for="text in todos" :key="text.id">
-            <div class="m-8 relative space-y-4">
-              <div
-                class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8"
-              >
-                <div class="flex-1 flex justify-between items-center">
-                  <p class="text-gray-500">{{ text.name }}</p>
-                  <button
-                    @click="deleteTodo"
-                    class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
-                  >
-                    Delete
-                  </button>
-                </div>
+        <div v-for="text in todos" :key="text.id">
+          <div class="m-8 relative space-y-4">
+            <div
+              class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8"
+            >
+              <div class="flex-1 flex justify-between items-center">
+                <p class="text-gray-500">{{ text.name }}</p>
+                <button @click="deleteTodo(t.id)"
+                  class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
@@ -78,19 +75,26 @@ const addTodo = async () => {
         name: res.data.newTodo.name,
       });
     }
+    console.log(todos);
+    
     newTodo.value = "";
   } catch (error) {
     console.log("error occur");
   }
 };
 
-const deleteTodo = async (id) => {
-  const res = await axios.delete(
-    `http://localhost:5000/todo/delete-todo/${todos.id}`
-  );
-  if (res) {
-    console.log(res);
+const deleteTodo = async(todoId)=> {
+ try {
+  const res = await axios.delete(`http://localhost:5000/todo/delete-todo/${todoId}`)
+  if(!res.ok){
+    throw new Error('Network response was not ok') 
   }
-};
+  todos.value = todos.value.filter(t => t.id !== todoId)
+ } catch (error) {
+  console.log(error);
+  
+ }
+
+}
 const text = "Welcome To Our Todo 🤗";
 </script>
