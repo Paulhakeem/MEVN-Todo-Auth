@@ -69,18 +69,17 @@ const newTodo = ref("");
 const todos = ref([]);
 
 const addTodo = async () => {
-  const res = await axios.post("http://localhost:5000/todo/add-todo", 
-    newTodo.value
-    );
-    try {
-      if (res) {
-        console.log("todo added");
-      }
-    } catch (error) {
-      console.log("error occur");
+  const res = await axios.post("http://localhost:5000/todo/add-todo", {
+    name: newTodo.value,
+  });
+  try {
+    if (res) {
+      console.log("todo added");
     }
-  };
-
+  } catch (error) {
+    console.log("error occur");
+  }
+};
 
 const text = "Welcome To Our Todo 🤗";
 </script>
