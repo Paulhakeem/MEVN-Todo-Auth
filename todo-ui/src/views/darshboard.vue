@@ -25,25 +25,28 @@
     </div>
 
     <!-- main body -->
-    <div class="bg-gray-50 flex items-center justify-center px-16">
-      <div class="relative w-full max-w-lg">
+    <div class="flex items-center justify-center px-16">
+      <div class="relative w-full max-w-lg pt-4">
         <!--  -->
         <color1 />
         <color2 />
         <color3 />
         <!-- TODO LIST -->
-        <div v-for="text in todos" :key="text.id">
-          <div class="m-8 relative space-y-4">
-            <div
-              class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8"
-            >
-              <div class="flex-1 flex justify-between items-center">
-                <p class="text-gray-500">{{ text.name }}</p>
-                <button @click="deleteTodo"
-                  class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
-                >
-                  Delete
-                </button>
+        <div v-if="todos">
+          <div v-for="text in todos" :key="text.id">
+            <div class="m-8 relative space-y-4">
+              <div
+                class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8"
+              >
+                <div class="flex-1 flex justify-between items-center">
+                  <p class="text-gray-500">{{ text.name }}</p>
+                  <button
+                    @click="deleteTodo"
+                    class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -81,12 +84,13 @@ const addTodo = async () => {
   }
 };
 
-const deleteTodo = async(id)=> {
-  const res = await axios.delete(`http://localhost:5000/todo/delete-todo/${todos.id}`)
-  if(res){
+const deleteTodo = async (id) => {
+  const res = await axios.delete(
+    `http://localhost:5000/todo/delete-todo/${todos.id}`
+  );
+  if (res) {
     console.log(res);
-    
   }
-}
+};
 const text = "Welcome To Our Todo 🤗";
 </script>
