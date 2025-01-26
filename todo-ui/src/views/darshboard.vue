@@ -27,16 +27,10 @@
     <!-- main body -->
     <div class="bg-gray-50 flex items-center justify-center px-16">
       <div class="relative w-full max-w-lg">
-        <div
-          class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
-        ></div>
-        <div
-          class="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
-        ></div>
-        <div
-          class="absolute -bottom-32 left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"
-        ></div>
-
+        <!--  -->
+        <color1 />
+        <color2 />
+        <color3 />
         <!-- TODO LIST -->
         <div v-for="text in todos" :key="text.id">
           <div class="m-8 relative space-y-4">
@@ -45,7 +39,7 @@
             >
               <div class="flex-1 flex justify-between items-center">
                 <p class="text-gray-500">{{ text.name }}</p>
-                <button
+                <button @click="deleteTodo"
                   class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
                 >
                   Delete
@@ -61,11 +55,13 @@
 
 <script setup>
 import Header from "@/components/Header.vue";
+import color1 from "@/components/color1.vue";
+import color2 from "@/components/color2.vue";
+import color3 from "@/components/color3.vue";
 import { ref } from "vue";
 import axios from "axios";
 
 const newTodo = ref("");
-
 const todos = ref([]);
 
 const addTodo = async () => {
@@ -74,12 +70,23 @@ const addTodo = async () => {
   });
   try {
     if (res) {
-      console.log("todo added");
+      todos.value.push({
+        id: res.data.newTodo._id,
+        name: res.data.newTodo.name,
+      });
     }
+    newTodo.value = "";
   } catch (error) {
     console.log("error occur");
   }
 };
 
+const deleteTodo = async(id)=> {
+  const res = await axios.delete(`http://localhost:5000/todo/delete-todo/${todos.id}`)
+  if(res){
+    console.log(res);
+    
+  }
+}
 const text = "Welcome To Our Todo 🤗";
 </script>
