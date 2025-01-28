@@ -85,7 +85,9 @@ const addTodo = async () => {
 
 const deleteTodo = async(todoId)=> {
  try {
-  const res = await axios.delete(`http://localhost:5000/todo/delete-todo/${todoId}`)
+  const res = await axios.delete(`http://localhost:5000/todo/delete-todo/${todoId}`, {
+    method: "DELETE"
+  })
   if(!res.ok){
     throw new Error('Network response was not ok') 
   }
