@@ -33,14 +33,14 @@
         <color3 />
         <!-- TODO LIST -->
         <div v-for="text in todos" :key="text.id">
-          <div class="m-8 relative space-y-4">
+          <div  class="m-8 relative space-y-4">
             <div
               class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8"
             >
               <div class="flex-1 flex justify-between items-center">
-                <p class="text-gray-500">{{ text.name }}</p>
+                <p class="text-gray-500">{{ text.name}}</p>
                 <button
-                  @click="deleteTodo(t.id)"
+                  @click="deleteTodo"
                   class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
                 >
                   Delete
@@ -71,8 +71,8 @@ onMounted(async () => {
     if (!response) {
       throw new Error("Network response was not ok");
     }
-    todos.value = response.data.response[0]
-    console.log(todos);
+    const res = response.data.response;
+    todos.value = await res
   } catch (error) {
     console.error("Error fetching items:", error);
   }
@@ -108,7 +108,7 @@ const deleteTodo = async (todoId) => {
     if (!res.ok) {
       throw new Error("Network response was not ok");
     }
-    todos.value = todos.value.filter((t) => t.id !== todoId);
+    todos.value = todos.value.filter((t) => t._id !== todoId);
   } catch (error) {
     console.log(error);
   }
