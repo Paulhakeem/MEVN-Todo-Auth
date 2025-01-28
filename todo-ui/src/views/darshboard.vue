@@ -39,7 +39,8 @@
             >
               <div class="flex-1 flex justify-between items-center">
                 <p class="text-gray-500">{{ text.name }}</p>
-                <button @click="deleteTodo(t.id)"
+                <button
+                  @click="deleteTodo(t.id)"
                   class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
                 >
                   Delete
@@ -58,12 +59,25 @@ import Header from "@/components/Header.vue";
 import color1 from "@/components/color1.vue";
 import color2 from "@/components/color2.vue";
 import color3 from "@/components/color3.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const newTodo = ref("");
 const todos = ref([]);
-
+// get todos
+onMounted(async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/todo/get-todos");
+    if (!response) {
+      throw new Error("Network response was not ok");
+    }
+    todos.value = response.data.response[0]
+    console.log(todos);
+  } catch (error) {
+    console.error("Error fetching items:", error);
+  }
+});
+// add todos
 const addTodo = async () => {
   const res = await axios.post("http://localhost:5000/todo/add-todo", {
     name: newTodo.value,
@@ -76,27 +90,28 @@ const addTodo = async () => {
       });
     }
     console.log(todos);
-    
+
     newTodo.value = "";
   } catch (error) {
     console.log("error occur");
   }
 };
-
-const deleteTodo = async(todoId)=> {
- try {
-  const res = await axios.delete(`http://localhost:5000/todo/delete-todo/${todoId}`, {
-    method: "DELETE"
-  })
-  if(!res.ok){
-    throw new Error('Network response was not ok') 
+// delete todos
+const deleteTodo = async (todoId) => {
+  try {
+    const res = await axios.delete(
+      `http://localhost:5000/todo/delete-todo/${todoId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+    todos.value = todos.value.filter((t) => t.id !== todoId);
+  } catch (error) {
+    console.log(error);
   }
-  todos.value = todos.value.filter(t => t.id !== todoId)
- } catch (error) {
-  console.log(error);
-  
- }
-
-}
+};
 const text = "Welcome To Our Todo 🤗";
 </script>
