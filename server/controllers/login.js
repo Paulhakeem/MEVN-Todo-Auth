@@ -2,9 +2,9 @@ const Users = require("./../model/users");
 const bcrypt = require("bcrypt");
 
 exports.loginUser = async (req, res, next) => {
-  const { name, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!name || !password) {
+  if (!email || !password) {
     return res.status(401).json({
       statusCode: 401,
       errorMessage: "Oops!!, Check your login details",
@@ -12,10 +12,10 @@ exports.loginUser = async (req, res, next) => {
   }
 
   try {
-    const findUser = await Users.findOne({ name }).select("+password");
-    const isPasswordMatch = await bcrypt.comparePassword(password, findUser.password);
+    const findUser = await Users.findOne({ email }).select("+password");
+    const isPasswordMatch = await findUser.comparePassword(password)
 
-    if (!findUser || !isPasswordMatch) {
+    if (!isPasswordMatch) {
       res.status(401).json({
         statusCode: 401,
         errorMessage: "Oops!!, Check Your Passord or Name",
