@@ -8,18 +8,18 @@
       </h1>
 
       <form
-        @submit.prevent="loginUser"
+        @submit.prevent="singInUser"
         class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
       >
         <p class="text-center text-lg font-medium">Login to your account</p>
 
         <div>
-          <label for="text" class="sr-only">Name</label>
+          <label for="text" class="sr-only">Email</label>
 
           <div class="relative">
             <input
-              v-model="name"
-              type="text"
+              v-model="email"
+              type="email"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter name"
             />
@@ -40,6 +40,7 @@
         </div>
 
         <button
+          @click="singInUser"
           type="submit"
           class="block w-full rounded-lg bg-purple-400 px-5 py-3 text-sm font-medium text-white"
         >
@@ -60,7 +61,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthtore } from "../store/auth.js";
 
-const name = ref("");
+const email = ref("");
 const password = ref("");
 
 const router = useRouter();
