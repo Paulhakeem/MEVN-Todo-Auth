@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
 import { api } from "../utils/instance.js";
+import { useRouter } from "vue-router";
 import axios from "axios";
 
 export const useAuthtore = defineStore("auth", () => {
+  const router = useRouter();
   const createUser = async (email, password) => {
     await axios
       .post("http://localhost:5000/todo/signup", { email, password })
@@ -17,14 +19,20 @@ export const useAuthtore = defineStore("auth", () => {
 
   // login
   const loginUser = async (email, password) => {
-    await axios
-      .post("http://localhost:5000/todo/login", { email, password })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
+    const res = await axios.post("http://localhost:5000/todo/login", {
+      email,
+      password,
+    });
+    try {
+      if (res) {
+        return res;
+      }
+      router.push({
+        path: "/darshboard",
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return { createUser, loginUser };

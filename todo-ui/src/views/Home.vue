@@ -69,10 +69,6 @@ const router = useRouter();
 const { loginUser } = useAuthtore();
 
 const singInUser = async () => {
-  await loginUser(email.value, password.value).then((res) => {
-    router.push({
-      path: "/darshboard",
-    });
-  });
+  await loginUser(email.value, password.value)
 };
 </script>
