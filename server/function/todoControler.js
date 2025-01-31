@@ -72,7 +72,7 @@ exports.deleteTodo = async (req, res, next) => {
   } catch (error) {
     res.status(404).json({
       statusCode: 404,
-      message: "User id not found!",
+      message: "Todo id not found!",
     });
   }
   next();

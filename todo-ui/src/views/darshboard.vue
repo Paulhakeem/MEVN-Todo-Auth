@@ -3,7 +3,7 @@
     <Header :msg="text" />
 
     <!-- input -->
-    <div class="relative justify-center m-auto max-w-md py-6">
+    <div id="search" class="relative justify-center m-auto max-w-md py-6">
       <label for="Search" class="sr-only"> Search </label>
 
       <input
@@ -25,7 +25,7 @@
     </div>
 
     <!-- main body -->
-    <div class="flex items-center justify-center px-16">
+    <div  class="flex items-center justify-center px-16">
       <div class="relative w-full max-w-lg pt-4">
         <!--  -->
         <color1 />
@@ -33,12 +33,12 @@
         <color3 />
         <!-- TODO LIST -->
         <div v-for="text in todos" :key="text.id">
-          <div  class="m-8 relative space-y-4">
-            <div
+          <div class="m-8 relative space-y-4">
+            <div 
               class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8"
             >
               <div class="flex-1 flex justify-between items-center">
-                <p class="text-gray-500">{{ text.name}}</p>
+                <p class="text-gray-500">{{ text.name }}</p>
                 <button
                   @click="deleteTodo"
                   class="w-20 h-10 rounded-lg bg-purple-300 text-white font-semibold"
@@ -72,7 +72,7 @@ onMounted(async () => {
       throw new Error("Network response was not ok");
     }
     const res = response.data.response;
-    todos.value = await res
+    todos.value = await res;
   } catch (error) {
     console.error("Error fetching items:", error);
   }
@@ -97,21 +97,12 @@ const addTodo = async () => {
   }
 };
 // delete todos
-const deleteTodo = async (todoId) => {
-  try {
-    const res = await axios.delete(
-      `http://localhost:5000/todo/delete-todo/${todoId}`,
-      {
-        method: "DELETE",
-      }
-    );
-    if (!res.ok) {
-      throw new Error("Network response was not ok");
-    }
-    todos.value = todos.value.filter((t) => t._id !== todoId);
-  } catch (error) {
-    console.log(error);
-  }
+const deleteTodo = async (id) => {
+  await axios
+    .delete(`http://localhost:5000/todo/delete-todo/${id}`)
+    .then((res) => {
+      console.log(res);
+    });
 };
 const text = "Welcome To Our Todo 🤗";
 </script>
